@@ -23,7 +23,7 @@
   "anchors": [
     {
       "name": "API Reference",
-      "icon": "terminal",
+      "icon": "rectangle-terminal",
       "url": "api-reference",
       "openapi": "https://api.greenlens.world/openapi.json"
     },
