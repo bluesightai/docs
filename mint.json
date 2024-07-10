@@ -1,11 +1,11 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Greenlens",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/logo/earth.png",
+    "light": "/logo/earth.png"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/logo/earth.png",
   "colors": {
     "primary": "#0D9373",
     "light": "#07C983",
@@ -15,73 +15,40 @@
       "to": "#07C983"
     }
   },
-  "topbarLinks": [
-    {
-      "name": "Support",
-      "url": "mailto:hi@mintlify.com"
-    }
-  ],
+  "topbarLinks": [],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "Sign Up",
+    "url": "https://greenlens.world/sign-up"
   },
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference",
-      "openapi": "https://api.greenlens.world/openapi.json"
-    }
-  ],
   "anchors": [
     {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
+      "name": "API Reference",
+      "icon": "terminal",
+      "url": "api-reference",
+      "openapi": "https://api.greenlens.world/openapi.json"
     },
     {
       "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "icon": "discord",
+      "url": "https://discord.gg/NCg9mkz9C7"
     }
   ],
   "navigation": [
     {
-      "group": "Get Started",
-      "pages": ["introduction", "quickstart", "development"]
+      "group": "",
+      "pages": ["introduction"]
     },
     {
       "group": "Essentials",
-      "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
-      ]
+      "pages": ["essentials/quickstart", "essentials/development"]
     },
     {
-      "group": "API Documentation",
-      "pages": ["api-reference/introduction"]
-    },
-    {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
-      ]
+      "group": "Guides",
+      "pages": ["api-reference/getting-started"]
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "github": "https://github.com/greenlensai",
+    "discord": "https://discord.gg/NCg9mkz9C7"
   }
 }
-
