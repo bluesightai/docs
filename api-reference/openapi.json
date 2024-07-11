@@ -1,0 +1,807 @@
+{
+  "openapi": "3.1.0",
+  "info": { "title": "FastAPI", "version": "0.1.0" },
+  "servers": [{ "url": "https://api.greenlens.world/" }],
+  "paths": {
+    "/train/classification": {
+      "post": {
+        "tags": ["Train"],
+        "summary": "Train Classification Model",
+        "description": "Train classification model on your data.",
+        "operationId": "train_classification_model_train_classification_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TrainClassificationData"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TrainResults" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/inference/classification": {
+      "post": {
+        "tags": ["Inference"],
+        "summary": "Infer Classification Model",
+        "description": "Run inference of previously trained classification model on your data.",
+        "operationId": "infer_classification_model_inference_classification_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InferClassificationData"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClassificationLabels"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/embeddings/loc": {
+      "post": {
+        "tags": ["Embeddings"],
+        "summary": "Get Embeddings With Coordinates",
+        "description": "Get embeddings for a list of points.",
+        "operationId": "get_embeddings_with_coordinates_embeddings_loc_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Points" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Embeddings" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/embeddings/img": {
+      "post": {
+        "tags": ["Embeddings"],
+        "summary": "Get Embeddings With Images",
+        "description": "Get embeddings for a list of images.",
+        "operationId": "get_embeddings_with_images_embeddings_img_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Images" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Embeddings" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Register",
+        "description": "Login endpoint\n\n## This is login endpoint",
+        "operationId": "register_auth_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UserData" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TextResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/token": {
+      "get": {
+        "tags": ["Authentication"],
+        "summary": "Get Token",
+        "operationId": "get_token_auth_token_get",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/LoginData" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Token" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "tags": ["Authentication"],
+        "summary": "Get My Data",
+        "operationId": "get_my_data_auth_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          }
+        },
+        "security": [{ "HTTPBearer": [] }]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ClassificationLabels": {
+        "properties": {
+          "labels": {
+            "items": { "type": "integer" },
+            "type": "array",
+            "title": "Labels",
+            "description": "Classification labels. Must start with 0.",
+            "examples": [[0, 1, 0, 1, 1, 1, 1, 2, 2, 2, 2, 2]]
+          }
+        },
+        "type": "object",
+        "required": ["labels"],
+        "title": "ClassificationLabels"
+      },
+      "Embeddings": {
+        "properties": {
+          "embeddings": {
+            "items": { "items": { "type": "number" }, "type": "array" },
+            "type": "array",
+            "title": "Embeddings",
+            "description": "Embedding representing an area",
+            "examples": [
+              [
+                [228.0, 322.1],
+                [234.0, 231.5]
+              ]
+            ]
+          }
+        },
+        "type": "object",
+        "required": ["embeddings"],
+        "title": "Embeddings"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": { "$ref": "#/components/schemas/ValidationError" },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Image": {
+        "properties": {
+          "platform": {
+            "type": "string",
+            "title": "Platform",
+            "description": "One of ['sentinel-2-l2a', 'landsat-c2l1', 'landsat-c2l2-sr', 'naip', 'linz', 'sentinel-1-rtc']",
+            "examples": [
+              "sentinel-2-l2a",
+              "landsat-c2l1",
+              "landsat-c2l2-sr",
+              "naip",
+              "linz",
+              "sentinel-1-rtc"
+            ]
+          },
+          "bands": {
+            "items": { "type": "string" },
+            "type": "array",
+            "title": "Bands",
+            "examples": [["red", "green", "blue"]]
+          },
+          "gsd": {
+            "type": "number",
+            "title": "Gsd",
+            "description": "gsd's for each band in images list (should be the same across all bands)",
+            "examples": [0.6]
+          },
+          "point": {
+            "prefixItems": [{ "type": "number" }, { "type": "number" }],
+            "type": "array",
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "Point",
+            "description": "List of 2D coordinates of points of interest",
+            "examples": [
+              [37.77625, -122.43267],
+              [40.68926, -74.04457]
+            ]
+          },
+          "timestamp": {
+            "type": "integer",
+            "title": "Timestamp",
+            "examples": [1714423534, 1614422534]
+          },
+          "pixels": {
+            "items": {
+              "items": { "items": { "type": "number" }, "type": "array" },
+              "type": "array"
+            },
+            "type": "array",
+            "title": "Pixels",
+            "description": "Lisr of 3D float arrays with dimensions [x (number of bands), h, w] representing an image",
+            "examples": [
+              [
+                [
+                  [255.0, 0.0],
+                  [0.0, 255.0]
+                ],
+                [
+                  [0.0, 255.0],
+                  [255.0, 0.0]
+                ],
+                [
+                  [0.0, 0.0],
+                  [255.0, 255.0]
+                ]
+              ]
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "platform",
+          "bands",
+          "gsd",
+          "point",
+          "timestamp",
+          "pixels"
+        ],
+        "title": "Image"
+      },
+      "Images": {
+        "properties": {
+          "images": {
+            "items": { "$ref": "#/components/schemas/Image" },
+            "type": "array",
+            "title": "Images",
+            "examples": [
+              [
+                {
+                  "bands": ["red", "green", "blue"],
+                  "gsd": 0.6,
+                  "pixels": [
+                    [
+                      [45.7, 82.1, 53.0, 120.4, 215.2, 64.5, 198.3, 150.6],
+                      [205.9, 123.1, 97.2, 54.3, 189.4, 210.5, 78.6, 35.7],
+                      [147.8, 213.9, 65.2, 142.6, 185.3, 99.4, 110.1, 250.0],
+                      [34.6, 111.2, 200.5, 240.3, 90.9, 77.7, 165.8, 192.1],
+                      [223.4, 87.5, 58.8, 176.3, 119.0, 48.2, 140.7, 99.9],
+                      [203.2, 75.6, 132.4, 208.8, 61.5, 143.9, 80.1, 190.0],
+                      [150.3, 172.5, 35.8, 55.6, 220.9, 88.0, 101.3, 115.7],
+                      [93.4, 66.6, 123.7, 183.2, 158.4, 199.6, 44.1, 212.5]
+                    ],
+                    [
+                      [45.7, 82.1, 53.0, 120.4, 215.2, 64.5, 198.3, 150.6],
+                      [205.9, 123.1, 97.2, 54.3, 189.4, 210.5, 78.6, 35.7],
+                      [147.8, 213.9, 65.2, 142.6, 185.3, 99.4, 110.1, 250.0],
+                      [34.6, 111.2, 200.5, 240.3, 90.9, 77.7, 165.8, 192.1],
+                      [223.4, 87.5, 58.8, 176.3, 119.0, 48.2, 140.7, 99.9],
+                      [203.2, 75.6, 132.4, 208.8, 61.5, 143.9, 80.1, 190.0],
+                      [150.3, 172.5, 35.8, 55.6, 220.9, 88.0, 101.3, 115.7],
+                      [93.4, 66.6, 123.7, 183.2, 158.4, 199.6, 44.1, 212.5]
+                    ],
+                    [
+                      [45.7, 82.1, 53.0, 120.4, 215.2, 64.5, 198.3, 150.6],
+                      [205.9, 123.1, 97.2, 54.3, 189.4, 210.5, 78.6, 35.7],
+                      [147.8, 213.9, 65.2, 142.6, 185.3, 99.4, 110.1, 250.0],
+                      [34.6, 111.2, 200.5, 240.3, 90.9, 77.7, 165.8, 192.1],
+                      [223.4, 87.5, 58.8, 176.3, 119.0, 48.2, 140.7, 99.9],
+                      [203.2, 75.6, 132.4, 208.8, 61.5, 143.9, 80.1, 190.0],
+                      [150.3, 172.5, 35.8, 55.6, 220.9, 88.0, 101.3, 115.7],
+                      [93.4, 66.6, 123.7, 183.2, 158.4, 199.6, 44.1, 212.5]
+                    ]
+                  ],
+                  "platform": "naip",
+                  "point": [37.77625, -122.43267],
+                  "timestamp": 1614422534
+                },
+                {
+                  "bands": ["red", "green", "blue", "nir"],
+                  "gsd": 10.0,
+                  "pixels": [
+                    [
+                      [45.7, 82.1, 53.0, 120.4, 215.2, 64.5, 198.3, 150.6],
+                      [205.9, 123.1, 97.2, 54.3, 189.4, 210.5, 78.6, 35.7],
+                      [147.8, 213.9, 65.2, 142.6, 185.3, 99.4, 110.1, 250.0],
+                      [34.6, 111.2, 200.5, 240.3, 90.9, 77.7, 165.8, 192.1],
+                      [223.4, 87.5, 58.8, 176.3, 119.0, 48.2, 140.7, 99.9],
+                      [203.2, 75.6, 132.4, 208.8, 61.5, 143.9, 80.1, 190.0],
+                      [150.3, 172.5, 35.8, 55.6, 220.9, 88.0, 101.3, 115.7],
+                      [93.4, 66.6, 123.7, 183.2, 158.4, 199.6, 44.1, 212.5]
+                    ],
+                    [
+                      [45.7, 82.1, 53.0, 120.4, 215.2, 64.5, 198.3, 150.6],
+                      [205.9, 123.1, 97.2, 54.3, 189.4, 210.5, 78.6, 35.7],
+                      [147.8, 213.9, 65.2, 142.6, 185.3, 99.4, 110.1, 250.0],
+                      [34.6, 111.2, 200.5, 240.3, 90.9, 77.7, 165.8, 192.1],
+                      [223.4, 87.5, 58.8, 176.3, 119.0, 48.2, 140.7, 99.9],
+                      [203.2, 75.6, 132.4, 208.8, 61.5, 143.9, 80.1, 190.0],
+                      [150.3, 172.5, 35.8, 55.6, 220.9, 88.0, 101.3, 115.7],
+                      [93.4, 66.6, 123.7, 183.2, 158.4, 199.6, 44.1, 212.5]
+                    ],
+                    [
+                      [45.7, 82.1, 53.0, 120.4, 215.2, 64.5, 198.3, 150.6],
+                      [205.9, 123.1, 97.2, 54.3, 189.4, 210.5, 78.6, 35.7],
+                      [147.8, 213.9, 65.2, 142.6, 185.3, 99.4, 110.1, 250.0],
+                      [34.6, 111.2, 200.5, 240.3, 90.9, 77.7, 165.8, 192.1],
+                      [223.4, 87.5, 58.8, 176.3, 119.0, 48.2, 140.7, 99.9],
+                      [203.2, 75.6, 132.4, 208.8, 61.5, 143.9, 80.1, 190.0],
+                      [150.3, 172.5, 35.8, 55.6, 220.9, 88.0, 101.3, 115.7],
+                      [93.4, 66.6, 123.7, 183.2, 158.4, 199.6, 44.1, 212.5]
+                    ],
+                    [
+                      [45.7, 82.1, 53.0, 120.4, 215.2, 64.5, 198.3, 150.6],
+                      [205.9, 123.1, 97.2, 54.3, 189.4, 210.5, 78.6, 35.7],
+                      [147.8, 213.9, 65.2, 142.6, 185.3, 99.4, 110.1, 250.0],
+                      [34.6, 111.2, 200.5, 240.3, 90.9, 77.7, 165.8, 192.1],
+                      [223.4, 87.5, 58.8, 176.3, 119.0, 48.2, 140.7, 99.9],
+                      [203.2, 75.6, 132.4, 208.8, 61.5, 143.9, 80.1, 190.0],
+                      [150.3, 172.5, 35.8, 55.6, 220.9, 88.0, 101.3, 115.7],
+                      [93.4, 66.6, 123.7, 183.2, 158.4, 199.6, 44.1, 212.5]
+                    ]
+                  ],
+                  "platform": "sentinel-2-l2a",
+                  "point": [37.77625, -122.43267],
+                  "timestamp": 1614422534
+                }
+              ]
+            ]
+          }
+        },
+        "type": "object",
+        "required": ["images"],
+        "title": "Images"
+      },
+      "InferClassificationData": {
+        "properties": {
+          "images": {
+            "items": { "$ref": "#/components/schemas/Image" },
+            "type": "array",
+            "title": "Images",
+            "examples": [
+              [
+                {
+                  "bands": ["red", "green", "blue"],
+                  "gsd": 0.6,
+                  "pixels": [
+                    [
+                      [45.7, 82.1, 53.0, 120.4, 215.2, 64.5, 198.3, 150.6],
+                      [205.9, 123.1, 97.2, 54.3, 189.4, 210.5, 78.6, 35.7],
+                      [147.8, 213.9, 65.2, 142.6, 185.3, 99.4, 110.1, 250.0],
+                      [34.6, 111.2, 200.5, 240.3, 90.9, 77.7, 165.8, 192.1],
+                      [223.4, 87.5, 58.8, 176.3, 119.0, 48.2, 140.7, 99.9],
+                      [203.2, 75.6, 132.4, 208.8, 61.5, 143.9, 80.1, 190.0],
+                      [150.3, 172.5, 35.8, 55.6, 220.9, 88.0, 101.3, 115.7],
+                      [93.4, 66.6, 123.7, 183.2, 158.4, 199.6, 44.1, 212.5]
+                    ],
+                    [
+                      [45.7, 82.1, 53.0, 120.4, 215.2, 64.5, 198.3, 150.6],
+                      [205.9, 123.1, 97.2, 54.3, 189.4, 210.5, 78.6, 35.7],
+                      [147.8, 213.9, 65.2, 142.6, 185.3, 99.4, 110.1, 250.0],
+                      [34.6, 111.2, 200.5, 240.3, 90.9, 77.7, 165.8, 192.1],
+                      [223.4, 87.5, 58.8, 176.3, 119.0, 48.2, 140.7, 99.9],
+                      [203.2, 75.6, 132.4, 208.8, 61.5, 143.9, 80.1, 190.0],
+                      [150.3, 172.5, 35.8, 55.6, 220.9, 88.0, 101.3, 115.7],
+                      [93.4, 66.6, 123.7, 183.2, 158.4, 199.6, 44.1, 212.5]
+                    ],
+                    [
+                      [45.7, 82.1, 53.0, 120.4, 215.2, 64.5, 198.3, 150.6],
+                      [205.9, 123.1, 97.2, 54.3, 189.4, 210.5, 78.6, 35.7],
+                      [147.8, 213.9, 65.2, 142.6, 185.3, 99.4, 110.1, 250.0],
+                      [34.6, 111.2, 200.5, 240.3, 90.9, 77.7, 165.8, 192.1],
+                      [223.4, 87.5, 58.8, 176.3, 119.0, 48.2, 140.7, 99.9],
+                      [203.2, 75.6, 132.4, 208.8, 61.5, 143.9, 80.1, 190.0],
+                      [150.3, 172.5, 35.8, 55.6, 220.9, 88.0, 101.3, 115.7],
+                      [93.4, 66.6, 123.7, 183.2, 158.4, 199.6, 44.1, 212.5]
+                    ]
+                  ],
+                  "platform": "naip",
+                  "point": [37.77625, -122.43267],
+                  "timestamp": 1614422534
+                },
+                {
+                  "bands": ["red", "green", "blue", "nir"],
+                  "gsd": 10.0,
+                  "pixels": [
+                    [
+                      [45.7, 82.1, 53.0, 120.4, 215.2, 64.5, 198.3, 150.6],
+                      [205.9, 123.1, 97.2, 54.3, 189.4, 210.5, 78.6, 35.7],
+                      [147.8, 213.9, 65.2, 142.6, 185.3, 99.4, 110.1, 250.0],
+                      [34.6, 111.2, 200.5, 240.3, 90.9, 77.7, 165.8, 192.1],
+                      [223.4, 87.5, 58.8, 176.3, 119.0, 48.2, 140.7, 99.9],
+                      [203.2, 75.6, 132.4, 208.8, 61.5, 143.9, 80.1, 190.0],
+                      [150.3, 172.5, 35.8, 55.6, 220.9, 88.0, 101.3, 115.7],
+                      [93.4, 66.6, 123.7, 183.2, 158.4, 199.6, 44.1, 212.5]
+                    ],
+                    [
+                      [45.7, 82.1, 53.0, 120.4, 215.2, 64.5, 198.3, 150.6],
+                      [205.9, 123.1, 97.2, 54.3, 189.4, 210.5, 78.6, 35.7],
+                      [147.8, 213.9, 65.2, 142.6, 185.3, 99.4, 110.1, 250.0],
+                      [34.6, 111.2, 200.5, 240.3, 90.9, 77.7, 165.8, 192.1],
+                      [223.4, 87.5, 58.8, 176.3, 119.0, 48.2, 140.7, 99.9],
+                      [203.2, 75.6, 132.4, 208.8, 61.5, 143.9, 80.1, 190.0],
+                      [150.3, 172.5, 35.8, 55.6, 220.9, 88.0, 101.3, 115.7],
+                      [93.4, 66.6, 123.7, 183.2, 158.4, 199.6, 44.1, 212.5]
+                    ],
+                    [
+                      [45.7, 82.1, 53.0, 120.4, 215.2, 64.5, 198.3, 150.6],
+                      [205.9, 123.1, 97.2, 54.3, 189.4, 210.5, 78.6, 35.7],
+                      [147.8, 213.9, 65.2, 142.6, 185.3, 99.4, 110.1, 250.0],
+                      [34.6, 111.2, 200.5, 240.3, 90.9, 77.7, 165.8, 192.1],
+                      [223.4, 87.5, 58.8, 176.3, 119.0, 48.2, 140.7, 99.9],
+                      [203.2, 75.6, 132.4, 208.8, 61.5, 143.9, 80.1, 190.0],
+                      [150.3, 172.5, 35.8, 55.6, 220.9, 88.0, 101.3, 115.7],
+                      [93.4, 66.6, 123.7, 183.2, 158.4, 199.6, 44.1, 212.5]
+                    ],
+                    [
+                      [45.7, 82.1, 53.0, 120.4, 215.2, 64.5, 198.3, 150.6],
+                      [205.9, 123.1, 97.2, 54.3, 189.4, 210.5, 78.6, 35.7],
+                      [147.8, 213.9, 65.2, 142.6, 185.3, 99.4, 110.1, 250.0],
+                      [34.6, 111.2, 200.5, 240.3, 90.9, 77.7, 165.8, 192.1],
+                      [223.4, 87.5, 58.8, 176.3, 119.0, 48.2, 140.7, 99.9],
+                      [203.2, 75.6, 132.4, 208.8, 61.5, 143.9, 80.1, 190.0],
+                      [150.3, 172.5, 35.8, 55.6, 220.9, 88.0, 101.3, 115.7],
+                      [93.4, 66.6, 123.7, 183.2, 158.4, 199.6, 44.1, 212.5]
+                    ]
+                  ],
+                  "platform": "sentinel-2-l2a",
+                  "point": [37.77625, -122.43267],
+                  "timestamp": 1614422534
+                }
+              ]
+            ]
+          },
+          "model_id": { "type": "string", "title": "Model Id" }
+        },
+        "type": "object",
+        "required": ["images", "model_id"],
+        "title": "InferClassificationData"
+      },
+      "LoginData": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "title": "Email",
+            "description": "Your email",
+            "examples": ["john@smith.com"]
+          },
+          "password": {
+            "type": "string",
+            "title": "Password",
+            "description": "Your password",
+            "examples": ["qwerty123!"]
+          }
+        },
+        "type": "object",
+        "required": ["email", "password"],
+        "title": "LoginData"
+      },
+      "Points": {
+        "properties": {
+          "points": {
+            "items": {
+              "prefixItems": [{ "type": "number" }, { "type": "number" }],
+              "type": "array",
+              "maxItems": 2,
+              "minItems": 2
+            },
+            "type": "array",
+            "title": "Points",
+            "description": "List of 2D coordinates of points of interest",
+            "examples": [
+              [
+                [37.77625, -122.43267],
+                [40.68926, -74.04457]
+              ]
+            ]
+          },
+          "size": {
+            "type": "integer",
+            "title": "Size",
+            "description": "Bounding box edge size in pixels. Should be dividable by 8.",
+            "examples": [128, 64]
+          }
+        },
+        "type": "object",
+        "required": ["points", "size"],
+        "title": "Points"
+      },
+      "TextResponse": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "Message",
+            "description": "Result of the operation execution"
+          }
+        },
+        "type": "object",
+        "required": ["message"],
+        "title": "TextResponse"
+      },
+      "Token": {
+        "properties": {
+          "access_token": { "type": "string", "title": "Access Token" },
+          "token_type": { "type": "string", "title": "Token Type" }
+        },
+        "type": "object",
+        "required": ["access_token", "token_type"],
+        "title": "Token"
+      },
+      "TrainClassificationData": {
+        "properties": {
+          "labels": {
+            "items": { "type": "integer" },
+            "type": "array",
+            "title": "Labels",
+            "description": "Classification labels. Must start with 0.",
+            "examples": [[0, 1, 0, 1, 1, 1, 1, 2, 2, 2, 2, 2]]
+          },
+          "images": {
+            "items": { "$ref": "#/components/schemas/Image" },
+            "type": "array",
+            "title": "Images",
+            "examples": [
+              [
+                {
+                  "bands": ["red", "green", "blue"],
+                  "gsd": 0.6,
+                  "pixels": [
+                    [
+                      [45.7, 82.1, 53.0, 120.4, 215.2, 64.5, 198.3, 150.6],
+                      [205.9, 123.1, 97.2, 54.3, 189.4, 210.5, 78.6, 35.7],
+                      [147.8, 213.9, 65.2, 142.6, 185.3, 99.4, 110.1, 250.0],
+                      [34.6, 111.2, 200.5, 240.3, 90.9, 77.7, 165.8, 192.1],
+                      [223.4, 87.5, 58.8, 176.3, 119.0, 48.2, 140.7, 99.9],
+                      [203.2, 75.6, 132.4, 208.8, 61.5, 143.9, 80.1, 190.0],
+                      [150.3, 172.5, 35.8, 55.6, 220.9, 88.0, 101.3, 115.7],
+                      [93.4, 66.6, 123.7, 183.2, 158.4, 199.6, 44.1, 212.5]
+                    ],
+                    [
+                      [45.7, 82.1, 53.0, 120.4, 215.2, 64.5, 198.3, 150.6],
+                      [205.9, 123.1, 97.2, 54.3, 189.4, 210.5, 78.6, 35.7],
+                      [147.8, 213.9, 65.2, 142.6, 185.3, 99.4, 110.1, 250.0],
+                      [34.6, 111.2, 200.5, 240.3, 90.9, 77.7, 165.8, 192.1],
+                      [223.4, 87.5, 58.8, 176.3, 119.0, 48.2, 140.7, 99.9],
+                      [203.2, 75.6, 132.4, 208.8, 61.5, 143.9, 80.1, 190.0],
+                      [150.3, 172.5, 35.8, 55.6, 220.9, 88.0, 101.3, 115.7],
+                      [93.4, 66.6, 123.7, 183.2, 158.4, 199.6, 44.1, 212.5]
+                    ],
+                    [
+                      [45.7, 82.1, 53.0, 120.4, 215.2, 64.5, 198.3, 150.6],
+                      [205.9, 123.1, 97.2, 54.3, 189.4, 210.5, 78.6, 35.7],
+                      [147.8, 213.9, 65.2, 142.6, 185.3, 99.4, 110.1, 250.0],
+                      [34.6, 111.2, 200.5, 240.3, 90.9, 77.7, 165.8, 192.1],
+                      [223.4, 87.5, 58.8, 176.3, 119.0, 48.2, 140.7, 99.9],
+                      [203.2, 75.6, 132.4, 208.8, 61.5, 143.9, 80.1, 190.0],
+                      [150.3, 172.5, 35.8, 55.6, 220.9, 88.0, 101.3, 115.7],
+                      [93.4, 66.6, 123.7, 183.2, 158.4, 199.6, 44.1, 212.5]
+                    ]
+                  ],
+                  "platform": "naip",
+                  "point": [37.77625, -122.43267],
+                  "timestamp": 1614422534
+                },
+                {
+                  "bands": ["red", "green", "blue", "nir"],
+                  "gsd": 10.0,
+                  "pixels": [
+                    [
+                      [45.7, 82.1, 53.0, 120.4, 215.2, 64.5, 198.3, 150.6],
+                      [205.9, 123.1, 97.2, 54.3, 189.4, 210.5, 78.6, 35.7],
+                      [147.8, 213.9, 65.2, 142.6, 185.3, 99.4, 110.1, 250.0],
+                      [34.6, 111.2, 200.5, 240.3, 90.9, 77.7, 165.8, 192.1],
+                      [223.4, 87.5, 58.8, 176.3, 119.0, 48.2, 140.7, 99.9],
+                      [203.2, 75.6, 132.4, 208.8, 61.5, 143.9, 80.1, 190.0],
+                      [150.3, 172.5, 35.8, 55.6, 220.9, 88.0, 101.3, 115.7],
+                      [93.4, 66.6, 123.7, 183.2, 158.4, 199.6, 44.1, 212.5]
+                    ],
+                    [
+                      [45.7, 82.1, 53.0, 120.4, 215.2, 64.5, 198.3, 150.6],
+                      [205.9, 123.1, 97.2, 54.3, 189.4, 210.5, 78.6, 35.7],
+                      [147.8, 213.9, 65.2, 142.6, 185.3, 99.4, 110.1, 250.0],
+                      [34.6, 111.2, 200.5, 240.3, 90.9, 77.7, 165.8, 192.1],
+                      [223.4, 87.5, 58.8, 176.3, 119.0, 48.2, 140.7, 99.9],
+                      [203.2, 75.6, 132.4, 208.8, 61.5, 143.9, 80.1, 190.0],
+                      [150.3, 172.5, 35.8, 55.6, 220.9, 88.0, 101.3, 115.7],
+                      [93.4, 66.6, 123.7, 183.2, 158.4, 199.6, 44.1, 212.5]
+                    ],
+                    [
+                      [45.7, 82.1, 53.0, 120.4, 215.2, 64.5, 198.3, 150.6],
+                      [205.9, 123.1, 97.2, 54.3, 189.4, 210.5, 78.6, 35.7],
+                      [147.8, 213.9, 65.2, 142.6, 185.3, 99.4, 110.1, 250.0],
+                      [34.6, 111.2, 200.5, 240.3, 90.9, 77.7, 165.8, 192.1],
+                      [223.4, 87.5, 58.8, 176.3, 119.0, 48.2, 140.7, 99.9],
+                      [203.2, 75.6, 132.4, 208.8, 61.5, 143.9, 80.1, 190.0],
+                      [150.3, 172.5, 35.8, 55.6, 220.9, 88.0, 101.3, 115.7],
+                      [93.4, 66.6, 123.7, 183.2, 158.4, 199.6, 44.1, 212.5]
+                    ],
+                    [
+                      [45.7, 82.1, 53.0, 120.4, 215.2, 64.5, 198.3, 150.6],
+                      [205.9, 123.1, 97.2, 54.3, 189.4, 210.5, 78.6, 35.7],
+                      [147.8, 213.9, 65.2, 142.6, 185.3, 99.4, 110.1, 250.0],
+                      [34.6, 111.2, 200.5, 240.3, 90.9, 77.7, 165.8, 192.1],
+                      [223.4, 87.5, 58.8, 176.3, 119.0, 48.2, 140.7, 99.9],
+                      [203.2, 75.6, 132.4, 208.8, 61.5, 143.9, 80.1, 190.0],
+                      [150.3, 172.5, 35.8, 55.6, 220.9, 88.0, 101.3, 115.7],
+                      [93.4, 66.6, 123.7, 183.2, 158.4, 199.6, 44.1, 212.5]
+                    ]
+                  ],
+                  "platform": "sentinel-2-l2a",
+                  "point": [37.77625, -122.43267],
+                  "timestamp": 1614422534
+                }
+              ]
+            ]
+          }
+        },
+        "type": "object",
+        "required": ["labels", "images"],
+        "title": "TrainClassificationData"
+      },
+      "TrainResults": {
+        "properties": {
+          "model_id": { "type": "string", "title": "Model Id" },
+          "train_details": {
+            "anyOf": [{ "type": "object" }, { "type": "null" }],
+            "title": "Train Details"
+          }
+        },
+        "type": "object",
+        "required": ["model_id", "train_details"],
+        "title": "TrainResults"
+      },
+      "UserData": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "title": "Email",
+            "description": "Your email",
+            "examples": ["john@smith.com"]
+          },
+          "password": {
+            "type": "string",
+            "title": "Password",
+            "description": "Your password",
+            "examples": ["qwerty123!"]
+          },
+          "first_name": {
+            "type": "string",
+            "title": "First Name",
+            "description": "Your first name",
+            "examples": ["John"]
+          },
+          "last_name": {
+            "type": "string",
+            "title": "Last Name",
+            "description": "Your last name",
+            "examples": ["Smith"]
+          }
+        },
+        "type": "object",
+        "required": ["email", "password", "first_name", "last_name"],
+        "title": "UserData"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": { "type": "string", "title": "Message" },
+          "type": { "type": "string", "title": "Error Type" }
+        },
+        "type": "object",
+        "required": ["loc", "msg", "type"],
+        "title": "ValidationError"
+      }
+    },
+    "securitySchemes": { "HTTPBearer": { "type": "http", "scheme": "bearer" } }
+  }
+}
