@@ -44,7 +44,7 @@
     },
     {
       "group": "Guides",
-      "pages": ["api-reference/getting-started"]
+      "pages": ["api-reference/train-a-classifier/train-a-classifier"]
     }
   ],
   "footerSocials": {
