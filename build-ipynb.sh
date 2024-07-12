@@ -18,19 +18,23 @@ find . -type d -name ".ipynb_checkpoints" -prune -o -type f -name "*.ipynb" -pri
             count = 0
         }
         {
-            print $0
             if ($0 ~ pattern) {
                 count++
+                print $0
                 if (count == 2) {
                     while ((getline line < insert_file) > 0) {
                         print line
                     }
                     close(insert_file)
+                    exit
                 }
+            } else {
+                print $0
             }
         }
     ' "$mdx_path" > "$temp_mdx_path"
 
     mv "$temp_mdx_path" "$mdx_path"
     rm "$output_md_path"
+
 done
