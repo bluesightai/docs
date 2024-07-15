@@ -44,7 +44,10 @@
     },
     {
       "group": "Guides",
-      "pages": ["api-reference/train-a-classifier"]
+      "pages": [
+        "api-reference/train-a-classifier",
+        "api-reference/train-a-ship-classifier"
+      ]
     }
   ],
   "footerSocials": {
