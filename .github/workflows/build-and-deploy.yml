@@ -1,4 +1,4 @@
-name: Build and push to registry
+name: Build, push to registry and deploy
 
 on:
   push:
