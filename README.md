@@ -1,5 +1,7 @@
 # Mintlify Starter Kit
 
+[![Build and push to registry](https://github.com/greenlensai/docs/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/greenlensai/docs/actions/workflows/build-and-deploy.yml)
+
 Click on `Use this template` to copy the Mintlify starter kit. The starter kit contains examples including
 
 - Guide pages
