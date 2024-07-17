@@ -1,18 +1,18 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Greenlens",
+  "name": "Bluesight",
   "logo": {
     "dark": "/logo/earth.png",
     "light": "/logo/earth.png"
   },
   "favicon": "/logo/earth.png",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#0066CC",
+    "light": "#4D94FF",
+    "dark": "#004C99",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#0066CC",
+      "to": "#4D94FF"
     }
   },
   "topbarLinks": [],
@@ -36,11 +36,16 @@
   "navigation": [
     {
       "group": "",
-      "pages": ["introduction"]
+      "pages": [
+        "introduction"
+      ]
     },
     {
       "group": "Essentials",
-      "pages": ["essentials/quickstart", "essentials/development"]
+      "pages": [
+        "essentials/quickstart",
+        "essentials/development"
+      ]
     },
     {
       "group": "Guides",
