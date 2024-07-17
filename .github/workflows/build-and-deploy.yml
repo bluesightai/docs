@@ -48,4 +48,4 @@ jobs:
             docker pull ghcr.io/${{ github.repository }}:latest
             docker stop mintlify-container || true
             docker rm mintlify-container || true
-            docker run -d --name mintlify-container -p 3000:3000 ghcr.io/${{ github.repository }}:latest
+            docker run -d --restart=on-failure --name mintlify-container -p 3000:3000 ghcr.io/${{ github.repository }}:latest
