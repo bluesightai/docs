@@ -17,15 +17,15 @@
   },
   "topbarLinks": [],
   "topbarCtaButton": {
-    "name": "Sign Up",
-    "url": "https://greenlens.world/sign-up"
+    "name": "Contact Us",
+    "url": "/"
   },
   "anchors": [
     {
       "name": "API Reference",
       "icon": "rectangle-terminal",
       "url": "api-reference",
-      "openapi": "https://api.greenlens.world/openapi.json"
+      "openapi": "https://api.bluesight.ai/openapi.json"
     },
     {
       "name": "Community",
@@ -44,14 +44,14 @@
       "group": "Essentials",
       "pages": [
         "essentials/quickstart",
-        "essentials/development"
+        "essentials/finetuning"
       ]
     },
     {
       "group": "Guides",
       "pages": [
-        "api-reference/train-a-classifier",
-        "api-reference/train-a-ship-classifier"
+        "guides/train-a-classifier",
+        "guides/train-a-ship-classifier"
       ]
     }
   ],
