@@ -1,71 +1,58 @@
 ---
 title: Introduction
-description: 'Welcome to the home of your new documentation'
+description: 'Bluesight is an AI platform for geospatial data. We offer hosted inference of <a target="_blank" href="https://github.com/Clay-foundation/model">Clay foundation model</a> and a fine-tuning API for downstream tasks.'
 ---
 
-<img
-  className="block dark:hidden"
-  src="/images/hero-light.svg"
-  alt="Hero Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/hero-dark.svg"
-  alt="Hero Dark"
-/>
+## Clay model
 
-## Setting up
+Clay model is a 200 million parameter open-source transformer generating embedding representation for any region on the planet. It was trained on a variety of open-source satellite data with a tile size of 256x256. You can read more about it on
+<a target="_blank" href="https://clay-foundation.github.io/model/index.html">Clay model developer webpage.</a> 
 
-The first step to world-class documentation is setting up your editing environments.
+### Embedding Inference
+
+Our embedding inference API returns a 768-dimensional vector representation for any given satellite image. This embedding can be used for various downstream tasks that you can experiment with on your own. Each API call, whether using raw pixels or coordinates, returns normalized 768-vector output.
 
 <CardGroup cols={2}>
   <Card
-    title="Edit Your Docs"
-    icon="pen-to-square"
-    href="https://mintlify.com/docs/quickstart"
+    title="Raw Pixel Inference"
+    icon="satellite"
+    href="/api-reference/raw-pixel-inference"
   >
-    Get your docs set up locally for easy development
+    Pass raw satellite pixels (must be sqare with the length divisble by 8) and metadata directly for inference. Ideal for users with their own satellite imagery.
   </Card>
   <Card
-    title="Preview Changes"
-    icon="image"
-    href="https://mintlify.com/docs/development"
+    title="Coordinate-based Inference"
+    icon="map-pin"
+    href="/api-reference/coordinate-inference"
   >
-    Preview your changes before you push to make sure they're perfect
+    Provide latitude and longitude coordinates. We automatically retrieve satellite data and perform inference.
   </Card>
 </CardGroup>
 
-## Make it yours
+## Finetuning for downstream tasks
 
-Update your docs to your brand and add valuable content for the best user conversion.
+Our fine-tuning API empowers you to customize the Clay model for specific geospatial tasks, supporting regression, classification, and segmentation workflows. Simply provide your labeled dataset and configuration, and we'll handle the fine-tuning process. Once complete, we offer hosted inference for your fine-tuned models, enabling fast and efficient predictions via raw pixel input for your custom tasks.
 
-<CardGroup cols={2}>
+<CardGroup cols={3}>
   <Card
-    title="Customize Style"
-    icon="palette"
-    href="https://mintlify.com/docs/settings/global"
+    title="Regression"
+    icon="chart-line"
+    href="/api-reference/finetuning/regression"
   >
-    Customize your docs to your company's colors and brands
+    Fine-tune for continuous value prediction tasks like estimating crop yield, population density, or economic indicators.
   </Card>
   <Card
-    title="Reference APIs"
-    icon="code"
-    href="https://mintlify.com/docs/api-playground/openapi"
+    title="Classification"
+    icon="tags"
+    href="/api-reference/finetuning/classification"
   >
-    Automatically generate endpoints from an OpenAPI spec
+    Develop models for categorizing land use, detecting specific structures, or identifying environmental features.
   </Card>
   <Card
-    title="Add Components"
-    icon="screwdriver-wrench"
-    href="https://mintlify.com/docs/components/accordion"
+    title="Segmentation"
+    icon="object-ungroup"
+    href="/api-reference/finetuning/segmentation"
   >
-    Build interactive features and designs to guide your users
-  </Card>
-  <Card
-    title="Get Inspiration"
-    icon="stars"
-    href="https://mintlify.com/customers"
-  >
-    Check out our showcase of our favorite documentation
+    Create pixel-level classification models for tasks like urban area delineation, forest cover mapping, or crop field boundary detection.
   </Card>
 </CardGroup>
