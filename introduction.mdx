@@ -1,12 +1,11 @@
 ---
 title: Introduction
-description: 'Bluesight is an AI platform for geospatial data. We offer hosted inference of <a target="_blank" href="https://github.com/Clay-foundation/model">Clay foundation model</a> and a fine-tuning API for downstream tasks. All endpoints and support on the platform are free and will stay so through mid August. Please do get in touch at hello@bluesight.ai if you have questions or suggestions.'
+description: Bluesight is an AI platform for geospatial data. We offer hosted inference of [Clay foundation model](https://github.com/Clay-foundation/model) and a fine-tuning API for downstream tasks. All endpoints and support on the platform are free and will stay so through mid August. Please do get in touch at hello@bluesight.ai if you have questions or suggestions.
 ---
 
 ## Clay model
 
-Clay model is a 200 million parameter open-source transformer generating embedding representation for any region on the planet. It was trained on a variety of open-source satellite data with a tile size of 256x256. You can read more about it on
-<a target="_blank" href="https://clay-foundation.github.io/model/index.html">Clay model developer webpage.</a> 
+Clay model is a 200 million parameter open-source transformer generating embedding representation for any region on the planet. It was trained on a variety of open-source satellite data with a tile size of 256x256. You can read more about it on [Clay model developer webpage](https://clay-foundation.github.io/model/index.html).
 
 ### Embedding Inference
 
@@ -18,22 +17,25 @@ Our embedding inference API returns a 768-dimensional vector representation for 
     icon="satellite"
     href="/api-reference/embeddings/get-embeddings-with-images"
   >
-    Pass raw satellite pixels (must be sqare with the length divisble by 8) and metadata directly for inference. Ideal for users with their own satellite imagery.
+    Pass raw satellite pixels (must be sqare with the length divisble by 8) and
+    metadata directly for inference. Ideal for users with their own satellite
+    imagery.
   </Card>
-  {/* <Card
+  <Card
     title="Coordinate-based Inference"
     icon="map-pin"
-    href="/api-reference/coordinate-inference"
+    href="/api-reference/embeddings/get-embeddings-with-coordinates"
   >
-    Provide latitude and longitude coordinates. We automatically retrieve satellite data and perform inference.
-  </Card> */}
+    Provide latitude and longitude coordinates. We automatically retrieve
+    satellite data and perform inference.
+  </Card>
 </CardGroup>
 
 ## Finetuning for downstream tasks
 
 Our fine-tuning API empowers you to customize the Clay model for specific geospatial tasks, supporting regression, classification, and segmentation workflows. Simply provide your labeled dataset and configuration, and we'll handle the fine-tuning process. Once complete, we offer hosted inference for your fine-tuned models, enabling fast and efficient predictions via raw pixel input for your custom tasks.
 
-<CardGroup cols={3}>
+<CardGroup cols={1}>
   {/* <Card
     title="Regression"
     icon="chart-line"
@@ -46,7 +48,8 @@ Our fine-tuning API empowers you to customize the Clay model for specific geospa
     icon="tags"
     href="/api-reference/train/train-classification-model"
   >
-    Develop models for categorizing land use, detecting specific structures, or identifying environmental features.
+    Develop models for categorizing land use, detecting specific structures, or
+    identifying environmental features.
   </Card>
   {/* <Card
     title="Segmentation"
