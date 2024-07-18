@@ -5,24 +5,23 @@ icon: "code"
 ---
 This guide shows how to train and infer [Clay Foundation Model](https://clay-foundation.github.io/model/index.html) for classification task ([ships vs non ships dataset](https://www.kaggle.com/datasets/rhammell/ships-in-satellite-imagery)) using our API.
 
-<a target="_blank" href="https://colab.research.google.com/github/greenlensai/docs/blob/main/api-reference/train-a-ship-classifier.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/bluesightai/docs/blob/main/guides/train-a-ship-classifier.ipynb">
   <img noZoom src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
 
 ```python
-API_URL = "https://api.greenlens.world"
-HEADERS = {"Content-Type": "application/json"}
+API_URL = "https://api.bluesight.ai"
 
-COLLECTION = "other"
-BANDS = ["red", "green", "blue"]
 GSD = 3.0
 IMG_WIDTH = 80
-RANDOM_SEED = 42
-DATE = "2018-01-01"
+BANDS = ["red", "green", "blue"]
 
 DATA_URL = "https://drive.google.com/uc?id=1f-M8N_R0nA4n6bDV1Hld31CnbR_rinjB"
 DATA_OUTPUT = "shipsnet.json"
+HEADERS = {"Content-Type": "application/json"}
+
+RANDOM_SEED = 42
 ```
 
 
@@ -57,9 +56,9 @@ pixels = pixels.reshape(-1, 3, IMG_WIDTH, IMG_WIDTH)
 ```output
 Downloading...
 From (original): https://drive.google.com/uc?id=1f-M8N_R0nA4n6bDV1Hld31CnbR_rinjB
-From (redirected): https://drive.google.com/uc?id=1f-M8N_R0nA4n6bDV1Hld31CnbR_rinjB&confirm=t&uuid=6a6e5bf9-899d-40f2-b30d-09680f809e84
-To: /home/furiousteabag/Projects/docs/api-reference/shipsnet.json
-100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 344M/344M [00:17<00:00, 20.1MB/s]
+From (redirected): https://drive.google.com/uc?id=1f-M8N_R0nA4n6bDV1Hld31CnbR_rinjB&confirm=t&uuid=fa5e3505-0a71-4666-a450-2c9f31902da5
+To: /home/furiousteabag/Projects/docs/guides/shipsnet.json
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 344M/344M [00:17<00:00, 19.4MB/s]
 ``````output
 Keys: ['data', 'labels', 'locations', 'scene_ids']
 Labels distribution: {1: 1000, 0: 3000}
@@ -108,9 +107,7 @@ for image, (lon, lat) in zip(pixels, locations):
             "bands": BANDS,
             "gsd": GSD,
             "pixels": image.tolist(),
-            "platform": COLLECTION,
-            "point": [lat, lon],
-            "timestamp": datetime.strptime(DATE, "%Y-%m-%d").timestamp(),
+            "point": [lat, lon]
         }
     )
     
@@ -133,7 +130,7 @@ Test labels shape: 800
 
 Now we need to load data to the format which is accepted by our API. Essentially, it is raw pixels data from all bands with some metadata.
 
-You can check detailed endpoint specification [in the docs](https://docs.greenlens.world/api-reference/train/train-classification-model).
+You can check detailed endpoint specification [in the docs](https://docs.bluesight.ai/api-reference/train/train-classification-model).
 
 
 ```python
@@ -150,13 +147,13 @@ else:
     print(f"Model id: '{model_id}'")
 ```
 ```output
-Model id: 'classification_3200_5dtYh'
+Model id: 'classification_3200_hPXN3'
 ```
 ## Run inference
 
 For inference we need only images.
 
-You can check detailed endpoint specification [in the docs](https://docs.greenlens.world/api-reference/inference/infer-classification-model).
+You can check detailed endpoint specification [in the docs](https://docs.bluesight.ai/api-reference/train/infer-classification-model).
 
 
 ```python
@@ -180,14 +177,14 @@ print(f"Accuracy: {accuracy_score(y_test, y_pred)}")
 print(classification_report(y_test, y_pred))
 ```
 ```output
-Matched 778 out of 800 correctly
-Accuracy: 0.9725
+Matched 780 out of 800 correctly
+Accuracy: 0.975
               precision    recall  f1-score   support
 
            0       0.98      0.98      0.98       600
-           1       0.94      0.95      0.95       200
+           1       0.95      0.95      0.95       200
 
     accuracy                           0.97       800
-   macro avg       0.96      0.96      0.96       800
-weighted avg       0.97      0.97      0.97       800
+   macro avg       0.97      0.97      0.97       800
+weighted avg       0.98      0.97      0.98       800
 ```

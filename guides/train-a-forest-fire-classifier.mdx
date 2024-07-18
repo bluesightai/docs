@@ -11,7 +11,7 @@ This guide shows how to train and infer [Clay Foundation Model](https://clay-fou
 
 
 ```python
-API_URL = "https://api.greenlens.world"
+API_URL = "https://api.bluesight.ai"
 HEADERS = {"Content-Type": "application/json"}
 
 STAC_API = "https://earth-search.aws.element84.com/v1"
@@ -127,7 +127,7 @@ test_labels = labels[test_idxs].tolist()
 
 Now we need to load data to the format which is accepted by our API. Essentially, it is raw pixels data from all bands with some metadata.
 
-You can check detailed endpoint specification [in the docs](https://docs.greenlens.world/api-reference/train/train-classification-model).
+You can check detailed endpoint specification [in the docs](https://docs.bluesight.ai/api-reference/train/train-classification-model).
 
 
 ```python
@@ -169,20 +169,20 @@ else:
     pprint(train_details)
 ```
 ```output
-Model id: 'classification_7_oHcrx'
+Model id: 'classification_7_zS7xN'
 {'C': 1.0,
  '_dual_coef_': [[1.0,
                   -0.0,
                   -0.0,
                   -1.0,
-                  -0.7988133368383551,
-                  -0.2011866631616449,
+                  -0.798891932744624,
+                  -0.20110806725537603,
                   -0.0],
                  [1.0, 1.0, 1.0, 1.0, -1.0, -1.0, -1.0]],
- '_gamma': 0.0920706239368605,
- '_intercept_': [-0.2903982549905777,
-                 -0.25201838463544846,
-                 0.006774723529815674],
+ '_gamma': 0.09207182487832924,
+ '_intercept_': [-0.29045574367046356,
+                 -0.25206713378429413,
+                 0.0067514777183532715],
  '_n_support': [1, 3, 3],
  '_num_iter': [1, 2, 3],
  '_probA': [],
@@ -200,16 +200,16 @@ Model id: 'classification_7_oHcrx'
                  -0.0,
                  -0.0,
                  -1.0,
-                 -0.7988133368383551,
-                 -0.2011866631616449,
+                 -0.798891932744624,
+                 -0.20110806725537603,
                  -0.0],
                 [1.0, 1.0, 1.0, 1.0, -1.0, -1.0, -1.0]],
  'epsilon': 0.0,
  'fit_status_': 0,
  'gamma': 'scale',
- 'intercept_': [-0.2903982549905777,
-                -0.25201838463544846,
-                0.006774723529815674],
+ 'intercept_': [-0.29045574367046356,
+                -0.25206713378429413,
+                0.0067514777183532715],
  'kernel': 'rbf',
  'max_iter': -1,
  'n_features_in_': 768,
@@ -227,7 +227,7 @@ Model id: 'classification_7_oHcrx'
 
 For inference we need only images.
 
-You can check detailed endpoint specification [in the docs](https://docs.greenlens.world/api-reference/inference/infer-classification-model).
+You can check detailed endpoint specification [in the docs](https://docs.bluesight.ai/api-reference/train/infer-classification-model).
 
 
 ```python
