@@ -1,0 +1,24 @@
+---
+title: 'Data inputs'
+description: 'Both embedding and downstream APIs rely on Clay base model. It is important to understand what data inputs are required and how we are handling the default values. We will first explain how the underlying Clay model works and then highlight how Bluesight API simplifies the workflow. Please note that all endpoints support batches (in the first tensor dimension), here we will give examples on for a sinle data input. 
+'
+---
+
+## Datacube
+The Clay model always takes a datacube in the format of:
+```
+datacube = {
+    "platform": string,
+    "time": torch.tensor(
+        np.hstack((week_norm, hour_norm)),
+        dtype=torch.float32,
+        device=device,
+    ),
+    "latlon": torch.tensor(
+        np.hstack((lat_norm, lon_norm)), dtype=torch.float32, device=device
+    ),
+    "pixels": pixels.to(device),
+    "gsd": torch.tensor(stack.gsd.values, device=device),
+    "waves": torch.tensor(waves, device=device),
+}
+```

@@ -18,7 +18,7 @@
   "topbarLinks": [],
   "topbarCtaButton": {
     "name": "Contact Us",
-    "url": "/"
+    "url": "mailto:hello@bluesight.ai"
   },
   "anchors": [
     {
@@ -38,13 +38,6 @@
       "group": "",
       "pages": [
         "introduction"
-      ]
-    },
-    {
-      "group": "Essentials",
-      "pages": [
-        "essentials/quickstart",
-        "essentials/finetuning"
       ]
     },
     {
