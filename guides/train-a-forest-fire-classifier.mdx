@@ -1,11 +1,11 @@
 ---
-title: "Train a classifier"
+title: "Train a forest fire classifier"
 description: "Start training satellite images classification models using Bluesight API"
 icon: "code"
 ---
 This guide shows how to train and infer [Clay Foundation Model](https://clay-foundation.github.io/model/index.html) for classification task using our API.
 
-<a target="_blank" href="https://colab.research.google.com/github/greenlensai/docs/blob/main/api-reference/train-a-classifier.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/bluesightai/docs/blob/main/guides/train-a-forest-fire-classifier.ipynb">
   <img noZoom src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
@@ -169,20 +169,20 @@ else:
     pprint(train_details)
 ```
 ```output
-Model id: 'classification_7_HVAMP'
+Model id: 'classification_7_oHcrx'
 {'C': 1.0,
  '_dual_coef_': [[1.0,
                   -0.0,
                   -0.0,
                   -1.0,
-                  -0.8156204184417959,
-                  -0.1843795815582041,
+                  -0.7988133368383551,
+                  -0.2011866631616449,
                   -0.0],
                  [1.0, 1.0, 1.0, 1.0, -1.0, -1.0, -1.0]],
- '_gamma': 0.09169353742221836,
- '_intercept_': [-0.29456670582294464,
-                 -0.2557448372244835,
-                 0.008118540048599243],
+ '_gamma': 0.0920706239368605,
+ '_intercept_': [-0.2903982549905777,
+                 -0.25201838463544846,
+                 0.006774723529815674],
  '_n_support': [1, 3, 3],
  '_num_iter': [1, 2, 3],
  '_probA': [],
@@ -200,16 +200,16 @@ Model id: 'classification_7_HVAMP'
                  -0.0,
                  -0.0,
                  -1.0,
-                 -0.8156204184417959,
-                 -0.1843795815582041,
+                 -0.7988133368383551,
+                 -0.2011866631616449,
                  -0.0],
                 [1.0, 1.0, 1.0, 1.0, -1.0, -1.0, -1.0]],
  'epsilon': 0.0,
  'fit_status_': 0,
  'gamma': 'scale',
- 'intercept_': [-0.29456670582294464,
-                -0.2557448372244835,
-                0.008118540048599243],
+ 'intercept_': [-0.2903982549905777,
+                -0.25201838463544846,
+                0.006774723529815674],
  'kernel': 'rbf',
  'max_iter': -1,
  'n_features_in_': 768,
