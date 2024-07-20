@@ -32,6 +32,15 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+
+      - name: Create GitHub Deployment
+        uses: chrnorm/deployment-action@v2
+        id: deployment
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          environment: production
+          initial_status: in_progress
+
       - name: Pull image and run it
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -49,3 +58,20 @@ jobs:
             docker stop mintlify-container || true
             docker rm mintlify-container || true
             docker run -d --restart=on-failure --name mintlify-container -p 3000:3000 ghcr.io/${{ github.repository }}:latest
+
+      - name: Update deployment status (success)
+        if: success()
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+          state: "success"
+          environment-url: https://docs.bluesight.ai/
+
+      - name: Update deployment status (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+          state: "failure"
