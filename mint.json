@@ -42,7 +42,8 @@
       "group": "Guides",
       "pages": [
         "guides/train-a-ship-classifier",
-        "guides/train-a-forest-fire-classifier"
+        "guides/train-a-forest-fire-classifier",
+        "guides/train-a-land-segmentation"
       ]
     }
   ],
