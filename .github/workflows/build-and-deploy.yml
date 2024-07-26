@@ -39,7 +39,7 @@ jobs:
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
           environment: production
-          initial_status: in_progress
+          initial-status: in_progress
 
       - name: Pull image and run it
         uses: appleboy/ssh-action@v1.0.3
