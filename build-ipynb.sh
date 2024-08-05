@@ -1,8 +1,11 @@
 #!/bin/bash
 
+output_dir="./images/notebooks"
+rm -rf "$output_dir"
+
 find . -type d -name ".ipynb_checkpoints" -prune -o -type f -name "*.ipynb" -print | while read -r notebook_path; do
 
-    output_md_path="${notebook_path%.ipynb}.md"
+    output_md_path="${output_dir}/$(basename "${notebook_path%.ipynb}.md")"
     mdx_path="${notebook_path%.ipynb}.mdx"
     temp_mdx_path="${notebook_path%.ipynb}_temp.mdx"
 
@@ -11,7 +14,9 @@ find . -type d -name ".ipynb_checkpoints" -prune -o -type f -name "*.ipynb" -pri
         exit 1
     fi
 
-    jupyter nbconvert --to markdown --template format-outputs.tpl --ExtractOutputPreprocessor.enabled=False "$notebook_path"
+    jupyter nbconvert --to markdown --template format-outputs.tpl --output-dir "$output_dir" "$notebook_path"
+
+    sed -i 's#!\[png\](#![png]('"${output_dir}/"'#g' "$output_md_path"
 
     awk -v insert_file="$output_md_path" -v pattern="---" '
         BEGIN {
