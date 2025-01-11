@@ -16,7 +16,7 @@ find . -type d -name ".ipynb_checkpoints" -prune -o -type f -name "*.ipynb" -pri
 
     jupyter nbconvert --to markdown --template format-outputs.tpl --output-dir "$output_dir" "$notebook_path"
 
-    sed -i 's#!\[png\](#![png]('"${output_dir}/"'#g' "$output_md_path"
+    sed -i 's#!\[png\](#![png]('"${output_dir#.}/"'#g' "$output_md_path"
 
     awk -v insert_file="$output_md_path" -v pattern="---" '
         BEGIN {
